@@ -1,0 +1,213 @@
+######################################################################
+# i3 dot config
+#
+# Date 2022.11
+# Author TongXY
+# Version i3 version 4.20.1-2-gacde5122+
+#
+# dependence:   polybar feh picom
+#
+######################################################################
+
+# => i3-gaps
+gaps inner  10
+gaps outer -4
+smart_gaps on
+smart_borders on
+
+# => 开机自启
+# 启动壁纸feh
+exec_always --no-startup-id feh --bg-scale "$HOME/.config/i3/wallpaper.png"
+# 启动渲染器picom
+exec_always --no-startup-id picom -b
+# 启动polybar
+exec_always --no-startup-id $HOME/.config/polybar/docky/launch.sh
+# 建议另外指定一个脚本来启动通用的开机自启项目
+exec --no-startup-id $HOME/.config/i3/RC
+
+# 调节背光和声音 xf86explorer setting
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# => 设定mod键为win键（alt为mod1）
+set $mod Mod4
+
+# => 设定工作区名
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+Left workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+
+# 移动窗口到另一个工作区
+bindsym mod1+Left  move container to workspace prev, workspace prev
+bindsym mod1+Right move container to workspace next, workspace next
+bindsym mod1+1 move container to workspace $WS1, workspace $WS1
+bindsym mod1+2 move container to workspace $WS2, workspace $WS2
+bindsym mod1+3 move container to workspace $WS3, workspace $WS3
+bindsym mod1+4 move container to workspace $WS4, workspace $WS4
+bindsym mod1+5 move container to workspace $WS5, workspace $WS5
+bindsym mod1+6 move container to workspace $WS6, workspace $WS6
+bindsym mod1+7 move container to workspace $WS7, workspace $WS7
+bindsym mod1+8 move container to workspace $WS8, workspace $WS8
+bindsym mod1+9 move container to workspace $WS9, workspace $WS9
+
+# 自动切换到新打开的窗口
+#focus_on_window_activation focus
+
+# => 自定义窗口(支持定义边框类型,窗口布局,大小调整,自动归类工作区等等,多个定义用,隔开)
+# for_window [class="(?i)thunar"] move container to workspace $WS5, workspace $WS5, layout tabbed
+
+# => 快捷启动
+bindsym $mod+Return exec --no-startup-id alacritty
+#bindsym $mod+r      exec --no-startup-id dmenu_run -b -fn 'Monaco-12' -nb '#333333' -nf '#FFFFFF' -sb '#111111' -sf '#3399FF'
+bindsym $mod+r      exec --no-startup-id $HOME/.config/polybar/docky/scripts/launcher.sh
+bindsym $mod+0      exec --no-startup-id $HOME/.config/i3/lock.sh
+bindsym Pause       exec --no-startup-id $HOME/.config/polybar/docky/scripts/powermenu.sh
+# => 关闭窗口
+bindsym mod1+F4 kill
+bindsym mod1+q kill
+# => bar切换
+# bindsym $mod+m bar mode toggle
+
+# => 新建窗口的分割方向
+bindsym $mod+x split h
+bindsym $mod+y split v
+
+# => 移动窗口
+bindsym mod1+h move left
+bindsym mod1+j move down
+bindsym mod1+k move up
+bindsym mod1+l move right
+
+# => 调整窗口大小
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px
+        bindsym Shift+h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px
+        bindsym Shift+j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px
+        bindsym Shift+k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px
+        bindsym Shift+l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+Shift+r mode "default"
+}
+
+bindsym $mod+Shift+r mode "resize"
+
+bindsym $mod+Shift+Left  resize shrink width  10 px or 1 ppt
+bindsym $mod+Shift+Down  resize grow   height 10 px or 1 ppt
+bindsym $mod+Shift+Up    resize shrink height 10 px or 1 ppt
+bindsym $mod+Shift+Right resize grow   width  10 px or 1 ppt
+
+# => 焦点切换
+# 焦点跟随鼠标移动
+focus_follows_mouse yes
+# 焦点切换到父窗口
+# bindsym $mod+q focus parent
+# 焦点切换回子窗口
+# bindsym $mod+Shift+q focus child
+# 焦点切换到浮动窗口
+# bindsym $mod+Shift+f focus mode_toggle
+
+bindsym $mod+k focus up
+bindsym $mod+j focus down
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+
+# => 布局切换
+# 切换到堆叠布局
+# bindsym $mod+z layout stacking
+# 切换到标签布局
+# bindsym $mod+x layout tabbed
+# 切换到平铺布局(竖直/水平)
+# bindsym $mod+c layout toggle split
+# 在所有布局中轮回切换
+# bindsym $mod+x layout toggle all
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# 窗口切换到全屏
+bindsym $mod+Shift+f fullscreen toggle
+# 窗口切换到浮动
+bindsym $mod+f floating toggle
+# 窗口切换为粘滞
+# bindsym $mod+g sticky toggle
+
+# => 暂存窗口(额外的可隐藏浮动窗口,取消浮动还原成普通窗口)
+# 转换普通窗口为暂存窗口
+bindsym $mod+plus move scratchpad
+# 呼出/隐藏暂存窗口
+bindsym $mod+minus scratchpad show
+
+# => 重新载入(更改配置文件后只须重载即可生效,不包含自启部分)
+bindsym mod1+Shift+r restart
+
+############################# 主题相关 ###############################
+
+# 字体
+font pango:monospace 10
+
+# 窗口颜色
+# class                 border  backgr. text    indicator child_border
+# client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+# client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# client.background       #ffffff
+
+client.focused              #FF6358 #008A90 #fdf6e3 #FF6358
+client.focused_inactive     #222222 #222222 #F1F1F1 #22222
+
+# titlebar size
+for_window [class="^.*"] border pixel 3
+
+############################# 电源管理 ###############################
+# (Pause Break键呼出)
+# set $mode_system 系统:锁屏(L) 注销(O) 关机(S) 重启(R) 取消(Esc)
+# bindsym Pause mode "$mode_system"
+# mode "$mode_system" {
+#    bindsym l exec i3lock -c '#333333', exec sleep .1 && exec xset dpms force off, mode "default"
+#    bindsym o exec i3-msg exit
+#    bindsym s exec systemctl poweroff
+#    bindsym r exec systemctl reboot
+#    bindsym Escape mode "default"
+# }

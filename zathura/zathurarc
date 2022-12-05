@@ -1,0 +1,12 @@
+set zoom-step 20
+set scroll-step 80
+
+set selection-clipboard clipboard
+set incremental-search true
+
+set default-fg #ABB2BF
+set default-bg #1E2127
+
+
+map <C-i> zoom in
+map <C-o> zoom out
