@@ -19,5 +19,5 @@ Diagnostics:
         bugprone-narrowing-conversions,
         readability-identifier-length
     ]
-    CheckOptions:
-      readability-identifier-naming.VariableCase: camelCase
+    # CheckOptions:
+    #   readability-identifier-naming.VariableCase: camelCase
