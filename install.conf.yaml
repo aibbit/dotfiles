@@ -7,9 +7,12 @@
 - link:
     ~/.vim : vim/vim
     ~/.vimrc : vim/.vimrc
+    ~/.tmux.conf : tmux/tmux.conf
 
 # - create:
-#     - ~/downloads
+#     - ~/Downloads
+#     - ~/Temp
+#     - ~/Documents
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
