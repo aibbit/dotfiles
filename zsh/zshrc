@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:/sbin
+test -d "$HOME/bin" && PATH="$HOME/bin:$PATH"
+
+
+autoload -U compinit promptinit colors vcs_info
+colors       # 初始化颜色变量
+compinit     # 初始化自动补全系统
+promptinit   # 初始化提示符设置
+
+test -r $HOME/.aliases && source $HOME/.aliases
+
+for i in $HOME/.zsh.d/*; do;
+    test -r "$i" && source "$i"
+done

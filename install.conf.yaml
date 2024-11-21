@@ -9,6 +9,11 @@
     ~/.vimrc : vim/.vimrc
     ~/.tmux.conf : tmux/tmux.conf
 
+    "~/.aliases" : "zsh/aliases"
+    "~/.zsh.d/colored_man.zsh" : "zsh/colored_man.zsh"
+    "~/.zsh.d/fishy_theme.zsh" : "zsh/fishy_theme.zsh"
+    "~/.zshrc" : "zsh/zshrc"
+
 # - create:
 #     - ~/Downloads
 #     - ~/Temp

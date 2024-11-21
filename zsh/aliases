@@ -1,0 +1,6 @@
+alias py="python3"
+alias r="ranger"
+alias ls="ls -h --color"
+alias grep="grep --color=auto --exclude-dir=.git --exclude-dir=.svn"
+alias df="df -h"
+alias cd=" cd"
